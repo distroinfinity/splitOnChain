@@ -1,0 +1,70 @@
+@public
+collection User {
+  id: string;
+  name: string;
+  address: string; // intentionally as a string
+  groups: string[];
+  activity: string[];
+
+  constructor ( _address: string ,name: string) {
+    // if (!ctx.publicKey) {
+    //   error('You must sign the txn');
+    // }
+    this.id = _address;
+    this.address = _address;
+    this.name = name;
+    this.groups = [];
+    this.activity = [];
+  }
+
+  addGroup (groupId: string) {
+    this.groups.push(groupId);
+  }
+}
+
+@public
+collection Group {
+  id: string;
+  name: string;
+  owner: string;
+  members: string[]; // userIds
+  entries: string[]; // entriesId
+
+  constructor(_id: string, _name: string, _owner: string){
+    this.id = _id;
+    this.name = _name;
+    this.owner = _owner;
+    this.members = [_owner];
+    this.entries = [];
+  }
+
+  addEntry(_entryId: string){
+    this.entries.push(_entryId);
+  }
+
+  addMember(_member: string){
+    this.members.push(_member);
+  }
+  
+}
+
+@public
+  collection Entry{
+    id: string;
+    paidBy: string;
+    sharedBetween: string[];
+    value: number;
+    description: string;
+    type: number; // 0 or 1
+    groupId: string;
+
+    constructor(_id: string, _paidBy: string, _sharedBetween: string[], _value: number, _desc: string, _type: number, _groupId: string){
+      this.id = _id;
+      this.paidBy = _paidBy;
+      this.sharedBetween = _sharedBetween;
+      this.value = _value;
+      this.description = _desc;
+      this.type = _type; // 0 or 1
+      this.groupId = _groupId;
+    }
+}
