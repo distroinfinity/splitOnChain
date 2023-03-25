@@ -21,6 +21,7 @@ export default function problems() {
         <Text>Apoorva</Text>
         <Text>Hash</Text>
         <Text>Charu</Text>
+        <AddMember/>
       </VStack>
       <Divider orientation='vertical' />
       <Flex

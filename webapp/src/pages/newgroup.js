@@ -38,6 +38,7 @@ export default function newgroup() {
             <NumberDecrementStepper />
         </NumberInputStepper>
         </NumberInput>
+        <Input placeholder='Enter a group name' size='lg' width={"600px"}/>
         <Text fontSize={"21px"}>Enter their wallet addresses!</Text>
         <Stack spacing={3}>
         <Input placeholder='0x1234567890abcdefghij1234567890abcdefghijij1234567890abcdefghij' size='lg' width={"600px"}/>
