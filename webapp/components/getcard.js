@@ -33,7 +33,22 @@ export default function GetCard({ solved, tag, title }) {
           align={"center"}
         >
           <Text>You lent 0.06ETH to Charu for PARASAILING</Text>
-          <Button>REMIND TO PAY</Button>
+          <Button
+          type="button"
+          background={"rgba(255, 255, 255, 0.04)"}
+          height={"47px"}
+          paddingRight={"20px"}
+          paddingLeft={"20px"}
+          borderRadius={"4px"}
+          border={"1px solid rgba(255, 255, 255, 0.2)"}
+          _hover={{
+            background: "rgba(255, 255, 255, 0.02)",
+            boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
+          }}
+          _active={{}}
+          fontSize={"21px"}
+          fontWeight={"medium"}
+          >REMIND TO PAY</Button>
         </Flex>
       </Flex>
     </motion.div>

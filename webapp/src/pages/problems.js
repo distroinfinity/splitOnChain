@@ -2,7 +2,7 @@ import Nav from "../../components/nav";
 import Card from "../../components/card";
 import GetCard from "../../components/getcard";
 import PayBack from "../../components/paymodal";
-import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure, Spacer } from "@chakra-ui/react";
 export default function problems() {
   
   return (
@@ -16,7 +16,7 @@ export default function problems() {
     >
       <Nav />
       <HStack direction='row' h='500px' p={4} spacing='24px'>
-      <VStack w='300px' direction="column" spacing='24px'>
+      <VStack w='200px' direction="column" spacing='24px'>
         <Text textDecor={"underline"}>Members</Text>
         <Text>Apoorva</Text>
         <Text>Hash</Text>
@@ -34,10 +34,44 @@ export default function problems() {
         <Text fontSize={"35px"}>DUES</Text>
         <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
         <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
-        <Button>Add Due</Button>
-        <Button>Settle up!</Button>
+        <Flex flexDir={"row"}>
+        <Button
+        type="button"
+        background={"rgba(255, 255, 255, 0.04)"}
+        height={"47px"}
+        margin={"10px"}
+        paddingRight={"20px"}
+        paddingLeft={"20px"}
+        borderRadius={"4px"}
+        border={"1px solid rgba(255, 255, 255, 0.2)"}
+        _hover={{
+          background: "rgba(255, 255, 255, 0.02)",
+          boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
+        }}
+        _active={{}}
+        fontSize={"21px"}
+        fontWeight={"medium"}
+        >Add Due</Button>
+        <Button
+        type="button"
+        background={"rgba(255, 255, 255, 0.04)"}
+        height={"47px"}
+        margin={"10px"}
+        paddingRight={"20px"}
+        paddingLeft={"20px"}
+        borderRadius={"4px"}
+        border={"1px solid rgba(255, 255, 255, 0.2)"}
+        _hover={{
+          background: "rgba(255, 255, 255, 0.02)",
+          boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
+        }}
+        _active={{}}
+        fontSize={"21px"}
+        fontWeight={"medium"}
+        >Settle up!</Button>
+        </Flex>
         <Card solved={"true"}/>
-        <GetCard solved={"false"}/>
+        <GetCard solved={"true"}/>
       </Flex>
       <Divider orientation='vertical' />
       <Flex w='300px'></Flex>

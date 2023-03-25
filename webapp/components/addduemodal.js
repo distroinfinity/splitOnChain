@@ -11,9 +11,12 @@ import {
     FormControl,
     FormLabel,
     Input,
+    Checkbox, 
+    CheckboxGroup,
+    Select,
   } from '@chakra-ui/react'
 
-  export default function PayBack() {
+  export default function AddDue() {
     const { isOpen, onOpen, onClose } = useDisclosure()
   
     // const initialRef = React.useRef(null)
@@ -35,7 +38,8 @@ import {
         }}
         _active={{}}
         fontSize={"21px"}
-        fontWeight={"medium"}>PAY BACK</Button>
+        fontWeight={"medium"}
+        >ADD DUE</Button>
     
   
         <Modal
@@ -44,23 +48,33 @@ import {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Paying Hash 0.09ETH Back</ModalHeader>
+            <ModalHeader>Add a Due</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
+            <FormControl>
+            <CheckboxGroup colorScheme='green' defaultValue={['naruto', 'kakashi']}>
+              <Stack spacing={[1, 5]} direction={['row', 'column']}>
+                <Checkbox value='hash'>Hash</Checkbox>
+                <Checkbox value='charu'>Charu</Checkbox>
+                <Checkbox value='apoorva'>Apoorva</Checkbox>
+              </Stack>
+            </CheckboxGroup>
+            </FormControl>
+
               <FormControl>
-                <FormLabel>Wallet Address</FormLabel>
+                <FormLabel>Value</FormLabel>
                 <Input placeholder='' />
               </FormControl>
   
               <FormControl mt={4}>
-                <FormLabel>Amount in ETH</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <Input placeholder='' />
               </FormControl>
             </ModalBody>
   
             <ModalFooter>
               <Button mr={3}>
-                Pay
+                Add Due!
               </Button>
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
