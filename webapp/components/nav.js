@@ -43,7 +43,7 @@ export default function Nav() {
                 fontSize={"21px"}
                 textDecor={header == "problems" ? "underline" : ""}
               >
-                All Activity
+                Activity
               </Text>
             </Link>
           </Flex>

@@ -1,8 +1,10 @@
 import Nav from "../../components/nav";
 import Card from "../../components/card";
 import GetCard from "../../components/getcard";
-import { Flex, Text, Stack, Divider, HStack, Box, VStack } from "@chakra-ui/react";
+import PayBack from "../../components/paymodal";
+import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
 export default function problems() {
+  
   return (
     <Flex
       className="font"
@@ -33,6 +35,7 @@ export default function problems() {
         <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
         <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
         <Button>Add Due</Button>
+        <Button>Settle up!</Button>
         <Card solved={"true"}/>
         <GetCard solved={"false"}/>
       </Flex>
