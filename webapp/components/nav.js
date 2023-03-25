@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Spacer, Button } from "@chakra-ui/react";
 import { ConnectBtn } from "./custombutton";
 import Link from "next/link";
 
@@ -31,7 +31,7 @@ export default function Nav() {
         justifyContent={"space-between"}
         align={"center"}
       >
-        <Flex gap={"25px"} align={"center"}>
+        <Flex gap={"25px"} align={"center"} width={"700px"} justifyContent={"space-between"}>
           <Link href="./">
             <Text fontSize={"26px"} fontWeight={"bold"} userSelect={"none"}>
               SPLITONCHAIN
@@ -43,11 +43,14 @@ export default function Nav() {
                 fontSize={"21px"}
                 textDecor={header == "problems" ? "underline" : ""}
               >
-                Recent Activity
+                All Activity
               </Text>
             </Link>
-            <Text fontSize={"21px"}>All Expenses</Text>
-            <Text fontSize={"21px"}>Profile Dashboard</Text>
+          </Flex>
+          <Flex gap={"16px"} align={"right"} width={"100px"} paddingLeft={"700px"}>
+          <Link href={"./newgroup"}>
+            <Button fontSize={"21px"}>New Group</Button>
+          </Link>
           </Flex>
         </Flex>
         <ConnectBtn />

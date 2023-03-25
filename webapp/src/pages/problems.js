@@ -1,6 +1,7 @@
 import Nav from "../../components/nav";
 import Card from "../../components/card";
-import { Flex } from "@chakra-ui/react";
+import GetCard from "../../components/getcard";
+import { Flex, Text, Stack, Divider, HStack, Box, VStack } from "@chakra-ui/react";
 export default function problems() {
   return (
     <Flex
@@ -12,23 +13,32 @@ export default function problems() {
       cursor={"default"}
     >
       <Nav />
+      <HStack direction='row' h='500px' p={4} spacing='24px'>
+      <VStack w='300px' direction="column" spacing='24px'>
+        <Text textDecor={"underline"}>Members</Text>
+        <Text>Apoorva</Text>
+        <Text>Hash</Text>
+        <Text>Charu</Text>
+      </VStack>
+      <Divider orientation='vertical' />
       <Flex
         gap={"20px"}
         flexDir={"column"}
         marginTop={"60px"}
         marginBottom={"60px"}
         align={"center"}
+        w='650'
       >
-        <Card solved={"true"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
-        <Card solved={"false"} tag={"DEFI"} title={"Uniswap Validation"} />
+        <Text fontSize={"35px"}>DUES</Text>
+        <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
+        <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
+        <Button>Add Due</Button>
+        <Card solved={"true"}/>
+        <GetCard solved={"false"}/>
       </Flex>
+      <Divider orientation='vertical' />
+      <Flex w='300px'></Flex>
+      </HStack>
     </Flex>
   );
 }

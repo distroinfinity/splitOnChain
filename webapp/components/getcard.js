@@ -1,7 +1,7 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-export default function Card({ solved, tag, title }) {
+export default function GetCard({ solved, tag, title }) {
   return (
     <motion.div
       initial={{ opacity: "0" }}
@@ -32,11 +32,10 @@ export default function Card({ solved, tag, title }) {
           fontSize={"18px"}
           align={"center"}
         >
-          <Text>Hash lent 0.09ETH to you for FLIGHT TO GOA</Text>
-          <Button>PAY BACK</Button>
+          <Text>You lent 0.06ETH to Charu for PARASAILING</Text>
+          <Button>REMIND TO PAY</Button>
         </Flex>
       </Flex>
     </motion.div>
   );
 }
-

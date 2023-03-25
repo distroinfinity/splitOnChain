@@ -1,7 +1,7 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-export default function Card({ solved, tag, title }) {
+export default function GroupCard({ solved, tag, title }) {
   return (
     <motion.div
       initial={{ opacity: "0" }}
@@ -10,7 +10,7 @@ export default function Card({ solved, tag, title }) {
     >
       <Flex
         h={"66px"}
-        w={"700px"}
+        w={"1158px"}
         background={
           solved == "true"
             ? "rgba(255, 255, 255, 0.04)"
@@ -27,7 +27,7 @@ export default function Card({ solved, tag, title }) {
         <Flex
           marginLeft={"30px"}
           marginRight={"30px"}
-          w={"600px"}
+          w={"1158px"}
           gap={"30px"}
           fontSize={"18px"}
           align={"center"}
@@ -39,4 +39,3 @@ export default function Card({ solved, tag, title }) {
     </motion.div>
   );
 }
-
