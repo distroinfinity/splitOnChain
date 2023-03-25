@@ -2,6 +2,7 @@ import Nav from "../../components/nav";
 import Card from "../../components/card";
 import GetCard from "../../components/getcard";
 import PayBack from "../../components/paymodal";
+import AddMember from "../../components/addmember";
 import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
 export default function problems() {
   
@@ -21,6 +22,7 @@ export default function problems() {
         <Text>Apoorva</Text>
         <Text>Hash</Text>
         <Text>Charu</Text>
+        <AddMember/>
       </VStack>
       <Divider orientation='vertical' />
       <Flex
