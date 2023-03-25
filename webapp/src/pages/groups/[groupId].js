@@ -6,6 +6,7 @@ import PayBack from "./../../../components/paymodal";
 import AddMember from "./../../../components/addmember";
 import { Polybase } from "@polybase/client";
 import { useRouter } from "next/router";
+import AddDue from "../../../components/addduemodal";
 
 import { useState } from "react";
 import {
@@ -79,7 +80,7 @@ export default function problems() {
           <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
           <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
           <Flex flexDir={"row"}>
-            <Button
+            {/* <Button
               // onClick={addEntry}
               type="button"
               background={"rgba(255, 255, 255, 0.04)"}
@@ -97,8 +98,9 @@ export default function problems() {
               fontSize={"21px"}
               fontWeight={"medium"}
             >
-              Add Due
-            </Button>
+              Add Expense
+            </Button> */}
+            <AddDue group={group} />
             <Button
               type="button"
               background={"rgba(255, 255, 255, 0.04)"}
