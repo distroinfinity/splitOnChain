@@ -1,8 +1,27 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Polybase } from "@polybase/client";
 
-export default function GroupCard({ solved, tag, title }) {
+const db = new Polybase({
+  defaultNamespace:
+    "pk/0xf699df4b2989f26513d93e14fd6e0befd620460546f3706a4e35b10ac3838457a031504254ddac46f6519fcf548ec892cc33043ce74c5fa9018ef5948a685e1d/splitonchain",
+});
+
+export default function GroupCard({ solved, tag, title, groupId }) {
+  const [group, setGroup] = useState(null);
+
+  async function loadGroup() {
+    const group = await db.collection("Group").record(groupId).get();
+    // console.log("group fetched", group.data);
+    setGroup(group.data);
+  }
+
+  useEffect(() => {
+    loadGroup();
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: "0" }}
@@ -31,7 +50,6 @@ export default function GroupCard({ solved, tag, title }) {
         opacity={solved == "true" ? "100%" : "60%"}
         alignItems={"center"}
       >
-        
         <Flex
           marginLeft={"30px"}
           marginRight={"30px"}
@@ -43,14 +61,19 @@ export default function GroupCard({ solved, tag, title }) {
           align={"center"}
           flexDir={"column"}
         >
-          <Link href={"./problems"}>
-          <Flex flexDir={"column"}>
-
-          <Flex><Text fontWeight= {'bold'}>GOA TRIP!</Text></Flex>
-          <Flex><Text>You owe: 0.09ETH</Text></Flex>
-          <Flex><Text>You're owed: 0.06ETH!</Text></Flex>
-          {/* <Button>PAY BACK</Button> */}
-          </Flex>
+          <Link href={`./groups/${group?.id}`}>
+            <Flex flexDir={"column"}>
+              <Flex>
+                <Text fontWeight={"bold"}>{group?.name}</Text>
+              </Flex>
+              <Flex>
+                <Text>You owe: 0.09ETH</Text>
+              </Flex>
+              <Flex>
+                <Text>You're owed: 0.06ETH!</Text>
+              </Flex>
+              {/* <Button>PAY BACK</Button> */}
+            </Flex>
           </Link>
         </Flex>
       </Flex>

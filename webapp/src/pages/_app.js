@@ -10,6 +10,8 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 
+import UserContext from "@/contexts/userContexts";
+
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
@@ -45,10 +47,7 @@ function MyApp({ Component, pageProps }) {
         />
 
         <meta name="title" content="splitOnChain" />
-        <meta
-          name="description"
-          content="Decentralised Splitwise."
-        />
+        <meta name="description" content="Decentralised Splitwise." />
 
         <meta property="og:type" content="website" key="og-type" />
         <meta
@@ -87,6 +86,7 @@ function MyApp({ Component, pageProps }) {
           key="twt-img"
         />
       </Head>
+
       <ChakraProvider>
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider
@@ -99,7 +99,9 @@ function MyApp({ Component, pageProps }) {
             })}
             coolMode
           >
-            <Component {...pageProps} />
+            <UserContext>
+              <Component {...pageProps} />
+            </UserContext>
           </RainbowKitProvider>
         </WagmiConfig>
       </ChakraProvider>

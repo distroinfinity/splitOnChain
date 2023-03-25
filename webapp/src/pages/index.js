@@ -3,6 +3,9 @@ import Link from "next/link";
 import { Auth } from "@polybase/auth";
 import { useEffect, useState } from "react";
 import { Polybase } from "@polybase/client";
+import { useContext } from "react";
+import { User_data } from "@/contexts/userContexts";
+import { useRouter } from "next/router";
 
 const auth = typeof window !== "undefined" ? new Auth() : null;
 
@@ -13,7 +16,8 @@ const db = new Polybase({
 
 export default function () {
   const [signedIn, setSignIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(User_data);
+  const router = useRouter();
 
   async function getPublicKey() {
     const msg = "Login with Chat";

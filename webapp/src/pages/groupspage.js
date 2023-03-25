@@ -3,10 +3,28 @@ import Card from "../../components/card";
 import GetCard from "../../components/groupcard";
 import PayBack from "../../components/paymodal";
 import AddMember from "../../components/addmember";
-import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure, Spacer } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Stack,
+  Divider,
+  HStack,
+  Box,
+  VStack,
+  Button,
+  useDisclosure,
+  Spacer,
+} from "@chakra-ui/react";
 import GroupCard from "../../components/groupcard";
+
+import { User_data } from "@/contexts/userContexts";
+import { useContext } from "react";
+import { useState, useEffect } from "react";
+
 export default function problems() {
-  
+  const { user } = useContext(User_data);
+  console.log("user through context in groups page ", user);
+
   return (
     <Flex
       className="font"
@@ -18,11 +36,11 @@ export default function problems() {
     >
       <Nav />
       <Flex gap={"20px"}>
-      <GroupCard/>
-      <GroupCard/>
-      <GroupCard/>
+        {user?.groups.map((group, index) => {
+          // console.log(group);
+          return <GroupCard groupId={group} />;
+        })}
       </Flex>
-      
     </Flex>
   );
 }
