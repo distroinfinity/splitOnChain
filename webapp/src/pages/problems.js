@@ -1,7 +1,9 @@
 import Nav from "../../components/nav";
 import Card from "../../components/card";
 import GetCard from "../../components/getcard";
+import DoneCard from "../../components/donecard";
 import PayBack from "../../components/paymodal";
+import AddMember from "../../components/addmember";
 import { Flex, Text, Stack, Divider, HStack, Box, VStack, Button, useDisclosure, Spacer } from "@chakra-ui/react";
 export default function problems() {
   
@@ -15,7 +17,7 @@ export default function problems() {
       cursor={"default"}
     >
       <Nav />
-      <HStack direction='row' h='500px' p={4} spacing='24px'>
+      <HStack direction='row' h='1000px' p={4} spacing='24px' align={"top"}>
       <VStack w='200px' direction="column" spacing='24px'>
         <Text textDecor={"underline"}>Members</Text>
         <Text>Apoorva</Text>
@@ -27,9 +29,9 @@ export default function problems() {
       <Flex
         gap={"20px"}
         flexDir={"column"}
-        marginTop={"60px"}
+        marginTop={"10px"}
         marginBottom={"60px"}
-        align={"center"}
+        align={"top"}
         w='650'
       >
         <Text fontSize={"35px"}>DUES</Text>
@@ -71,8 +73,10 @@ export default function problems() {
         fontWeight={"medium"}
         >Settle up!</Button>
         </Flex>
+        <Text fontSize={"25px"}>All Activity</Text>
         <Card solved={"true"}/>
         <GetCard solved={"true"}/>
+        <DoneCard solved={"true"}/>
       </Flex>
       <Divider orientation='vertical' />
       <Flex w='300px'></Flex>

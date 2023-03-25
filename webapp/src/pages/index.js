@@ -108,7 +108,7 @@ export default function () {
           </Flex>
           <Flex gap={"20.35px"}>
             {signedIn == true ? (
-              <Link href={"./problems"}>
+              <Link href={"./groupspage"}>
                 <Button
                   height={"47px"}
                   paddingRight={"25px"}
@@ -123,7 +123,7 @@ export default function () {
                   }}
                   _active={{}}
                 >
-                  Make a new group
+                  Go to your groups
                 </Button>
               </Link>
             ) : (
@@ -147,7 +147,7 @@ export default function () {
                 _active={{}}
                 onClick={signIn}
               >
-                SignIn
+                Sign In
               </Button>
             ) : (
               <Button

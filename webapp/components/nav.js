@@ -26,24 +26,32 @@ export default function Nav() {
       borderBottom={"1px solid rgba(255, 255, 255, 0.2)"}
     >
       <Flex
-        h={"94px"}
+        h={"97px"}
         w={"1302px"}
         justifyContent={"space-between"}
         align={"center"}
       >
-        <Flex gap={"25px"} align={"center"} width={"700px"} justifyContent={"space-between"}>
+        <Flex gap={"20px"} align={"center"} width={"700px"} justifyContent={"space-between"}>
           <Link href="./">
             <Text fontSize={"26px"} fontWeight={"bold"} userSelect={"none"}>
               SPLITONCHAIN
             </Text>
           </Link>
-          <Flex gap={"16px"} align={"center"}>
-            <Link href={"./problems"}>
+          <Flex gap={"20px"} align={"center"}>
+            {/* <Link href={"./problems"}>
               <Text
                 fontSize={"21px"}
                 textDecor={header == "problems" ? "underline" : ""}
               >
                 Activity
+              </Text>
+            </Link> */}
+            <Link href={"./groupspage"}>
+              <Text
+                fontSize={"21px"}
+                textDecor={header == "groupspage" ? "underline" : ""}
+              >
+                Groups
               </Text>
             </Link>
           </Flex>
@@ -67,7 +75,7 @@ export default function Nav() {
           </Link>
           </Flex>
         </Flex>
-        <ConnectBtn />
+        {/* <ConnectBtn /> */}
       </Flex>
     </Flex>
   );

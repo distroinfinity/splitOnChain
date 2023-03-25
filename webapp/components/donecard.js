@@ -1,8 +1,7 @@
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
-export default function GroupCard({ solved, tag, title }) {
+export default function DoneCard({ solved, tag, title }) {
   return (
     <motion.div
       initial={{ opacity: "0" }}
@@ -10,12 +9,8 @@ export default function GroupCard({ solved, tag, title }) {
       transition={{ duration: "0.2", type: "linear" }}
     >
       <Flex
-        h={"250px"}
-        w={"400px"}
-        gap={"20px"}
-        marginTop={"20px"}
-        marginLeft={"20px"}
-        marginRight={"20px"}
+        h={"66px"}
+        w={"700px"}
         background={
           solved == "true"
             ? "rgba(255, 255, 255, 0.04)"
@@ -27,31 +22,34 @@ export default function GroupCard({ solved, tag, title }) {
             : "1px solid rgba(255, 255, 255, 0.1)"
         }
         borderRadius={"7px"}
-        borderWidth={"3px"}
         opacity={solved == "true" ? "100%" : "60%"}
-        alignItems={"center"}
       >
-        
         <Flex
           marginLeft={"30px"}
           marginRight={"30px"}
-          borderRadius={"10px"}
-          padding={"10px"}
-          w={"1440px"}
+          w={"600px"}
           gap={"30px"}
-          fontSize={"25px"}
+          fontSize={"18px"}
           align={"center"}
-          flexDir={"column"}
         >
-          <Link href={"./problems"}>
-          <Flex flexDir={"column"}>
-
-          <Flex><Text fontWeight= {'bold'}>GOA TRIP!</Text></Flex>
-          <Flex><Text>You owe: 0.09ETH</Text></Flex>
-          <Flex><Text>You're owed: 0.06ETH!</Text></Flex>
-          {/* <Button>PAY BACK</Button> */}
-          </Flex>
-          </Link>
+          <Text>Hash paid Charu 0.05ETH!</Text>
+          <Button
+          type="button"
+          background={"rgba(255, 255, 255, 0.04)"}
+          height={"47px"}
+          paddingRight={"20px"}
+          paddingLeft={"20px"}
+          borderRadius={"4px"}
+          border={"1px solid rgba(255, 255, 255, 0.2)"}
+          _hover={{
+            background: "rgba(255, 255, 255, 0.02)",
+            boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
+          }}
+          _active={{}}
+          fontSize={"21px"}
+          fontWeight={"medium"}
+          align={"right"}
+          >✅</Button>
         </Flex>
       </Flex>
     </motion.div>
