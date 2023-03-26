@@ -45,7 +45,7 @@ export default function problems() {
         {user?.groups?.length == 0 && <Text>No groups created yet</Text>}
         {user?.groups.map((group, index) => {
           // console.log(group);
-          return <GroupCard groupId={group} />;
+          return <GroupCard key={index} groupId={group} />;
         })}
       </Flex>
     </Flex>

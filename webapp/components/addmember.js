@@ -36,9 +36,36 @@ export default function AddMember({ id }) {
       .record(
         id // id of entry to be updated
       )
-      .call("addMember", [newMember]); // hardcoded group id
+      .call("addMember", [newMember.toLowerCase()]); // hardcoded group id
 
     console.log("added member to Group ", id, recordData);
+
+    // if a user-member does not exists create a user end and add group to its db
+    let user;
+    try {
+      user = await db.collection("User").record(newMember.toLowerCase()).get();
+      console.log("User Already exists");
+    } catch (e) {
+      // .create() accepts two params, address and name of user
+      // populate these dynamically with address and name of user
+      user = await db
+        .collection("User")
+        .create([publicKey.toLowerCase(), "TestName - Yash"]);
+      console.log("New User created");
+    }
+    console.log("user is ", user);
+    user = user.data;
+
+    // group id to new member collection
+    const userData = await db
+      .collection("User")
+      .record(
+        user.id // id of entry to be updated
+      )
+      .call("addGroup", [id]); // hardcoded group id
+
+    console.log("added group to user table", userData);
+
     setAdded(true);
   };
 
