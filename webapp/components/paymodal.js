@@ -163,7 +163,7 @@ export default function PayBack({ group }) {
               />
             </FormControl>
             <FormControl mt={4}>
-              <FormLabel>Euivalent Eth </FormLabel>
+              <FormLabel>Equivalent ETH </FormLabel>
               <Input
                 value={
                   ethAmountInWei

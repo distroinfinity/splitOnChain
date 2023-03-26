@@ -118,6 +118,7 @@ export default function AddDue({ group }) {
     <>
       <Button
         onClick={onOpen}
+        marginRight="10px"
         type="button"
         background={"rgba(255, 255, 255, 0.04)"}
         height={"47px"}

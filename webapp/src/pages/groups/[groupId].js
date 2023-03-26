@@ -7,10 +7,6 @@ import AddMember from "./../../../components/addmember";
 import { Polybase } from "@polybase/client";
 import { useRouter } from "next/router";
 import AddDue from "../../../components/addduemodal";
-import * as PushAPI from "@pushprotocol/restapi";
-import * as ethers from "ethers";
-
-import { EmbedSDK } from "@pushprotocol/uiembed";
 
 import { useState } from "react";
 import {
@@ -41,33 +37,6 @@ export default function problems() {
   const [group, setGroup] = useState(null);
   const [entries, setEntries] = useState([]);
 
-  const sendNotification = async () => {
-    const _signer = new ethers.Wallet(Pkey);
-    console.log("signer", _signer);
-    try {
-      const apiResponse = await PushAPI.payloads.sendNotification({
-        signer: _signer,
-        type: 1, // broadcast
-        identityType: 2, // direct payload
-        notification: {
-          title: `[SDK-TEST] notification TITLE:`,
-          body: `[sdk-test] notification BODY`,
-        },
-        payload: {
-          title: `[sdk-test] payload title`,
-          body: `sample msg body`,
-          cta: "",
-          img: "",
-        },
-        channel: "eip155:5:0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // your channel address
-        env: "staging",
-      });
-      console.log("notification sent", apiResponse);
-    } catch (err) {
-      console.error("Error: ", err);
-    }
-  };
-
   async function loadGroup() {
     console.log("groupId passed as quer", router.query.groupId);
     const id = router.query.groupId;
@@ -88,50 +57,13 @@ export default function problems() {
     setEntries(temp);
   }
 
-  async function getEntry(id) {
-    const entry = await db.collection("Entry").record(id).get();
-    // console.log("group fetched", group.data);
-    return entry;
-  }
-  async function loadNotifications() {
-    const notifications = await PushAPI.user.getFeeds({
-      user: "eip155:5:0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // user address in CAIP
-      env: "staging",
-    });
-    console.log("fetched notifications", notifications);
-  }
+  // async function getEntry(id) {
+  //   const entry = await db.collection("Entry").record(id).get();
+  //   return entry;
+  // }
 
   useEffect(() => {
     loadGroup();
-    loadNotifications();
-  }, []);
-  useEffect(() => {
-    // if (account) { // 'your connected wallet address'
-    EmbedSDK.init({
-      headerText: "Recent Activity", // optional
-      targetID: "sdk-trigger-id", // mandatory
-      appName: "consumerApp", // mandatory
-      user: "0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // mandatory
-      chainId: 1, // mandatory
-      viewOptions: {
-        type: "sidebar", // optional [default: 'sidebar', 'modal']
-        showUnreadIndicator: true, // optional
-        unreadIndicatorColor: "#cc1919",
-        unreadIndicatorPosition: "bottom-right",
-      },
-      theme: "light",
-      onOpen: () => {
-        console.log("-> client dApp onOpen callback");
-      },
-      onClose: () => {
-        console.log("-> client dApp onClose callback");
-      },
-    });
-    // }
-
-    return () => {
-      EmbedSDK.cleanup();
-    };
   }, []);
 
   return (
@@ -180,10 +112,7 @@ export default function problems() {
               <DoneCard solved={"true"} />;
             }
           })}
-
-          {/* <GetCard solved={"true"} /> */}
         </Flex>
-        <Divider orientation="vertical" />
         <Flex
           gap={"20px"}
           flexDir={"column"}
@@ -191,10 +120,7 @@ export default function problems() {
           marginBottom={"60px"}
           align={"top"}
           w="300px"
-        >
-          {/* <Button onClick={sendNotification}> Send Notification</Button> */}
-          <button id="sdk-trigger-id">trigger button</button>
-        </Flex>
+        ></Flex>
       </HStack>
     </Flex>
   );

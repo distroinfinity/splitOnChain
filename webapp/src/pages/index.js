@@ -99,7 +99,7 @@ export default function () {
               >
                 Scaling Ethereum Hackathon
               </a>{" "}
-              to decentralise the famous Splitwise
+              to decentralise expense sharing and settlement
             </Text>
             <Text
               className="sub"
