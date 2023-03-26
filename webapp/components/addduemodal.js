@@ -16,6 +16,7 @@ import {
   Select,
   Stack,
   Box,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Polybase } from "@polybase/client";
@@ -32,6 +33,7 @@ export default function AddDue({ group }) {
   const [value, setValue] = useState(0);
   const [options, setOptions] = useState([]);
   const [paidBy, setPaidBy] = useState("");
+  const [added, setAdded] = useState(false);
 
   // const initialRef = React.useRef(null)
   // const finalRef = React.useRef(null)
@@ -69,6 +71,7 @@ export default function AddDue({ group }) {
       .call("addEntry", [randomid]); // hardcoded group id
 
     console.log("added entry to group table", recordData);
+    setAdded(true);
   }
 
   const handleSubmit = async (event) => {
@@ -158,20 +161,14 @@ export default function AddDue({ group }) {
                   onChange={(event) => setPaidBy(event.target.value)}
                 >
                   {group?.members?.map((member, index) => {
-                    return (
-                      // <Checkbox value="hash"
-                      <option value={member}>{member}</option>
-                    );
+                    return <option value={member}>{member}</option>;
                   })}
-                  {/* <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option> */}
                 </Select>
               </FormControl>
+              {added && <Text>Added</Text>}
             </ModalBody>
 
             <ModalFooter>
-              {/* console.log({ value, desc, paidBy, options }); */}
               <Button
                 type="submit"
                 mr={3}

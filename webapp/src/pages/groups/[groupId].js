@@ -94,8 +94,10 @@ export default function problems() {
         >
           <Text fontSize={"45px"}>{group?.name}</Text>
           <Text fontSize={"35px"}>DUES</Text>
-          <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
-          <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
+          <Text fontSize={"20px"}>
+            You owe: 10 USD to 0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8
+          </Text>
+          <Text fontSize={"20px"}>You're owed: 0 USD</Text>
           <Flex flexDir={"row"}>
             <AddDue group={group} />
             <PayBack />

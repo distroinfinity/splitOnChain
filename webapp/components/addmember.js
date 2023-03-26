@@ -11,6 +11,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Text,
 } from "@chakra-ui/react";
 import { Polybase } from "@polybase/client";
 import { useState } from "react";
@@ -22,10 +23,13 @@ const db = new Polybase({
 export default function AddMember({ id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newMember, setNewMember] = useState("");
+  const [added, setAdded] = useState(false);
 
   const addMember = async () => {
     console.log("group id in add member", id);
     if (!id) return;
+
+    setAdded(false);
 
     const recordData = await db
       .collection("Group")
@@ -35,12 +39,13 @@ export default function AddMember({ id }) {
       .call("addMember", [newMember]); // hardcoded group id
 
     console.log("added member to Group ", id, recordData);
-    onClose;
+    setAdded(true);
   };
 
   // const initialRef = React.useRef(null)
   // const finalRef = React.useRef(null)
   const handleInputChange = (event) => {
+    setAdded(false);
     setNewMember(event.target.value);
   };
   return (
@@ -61,6 +66,8 @@ export default function AddMember({ id }) {
                 onChange={handleInputChange}
               />
             </FormControl>
+
+            {added && <Text>Added</Text>}
           </ModalBody>
 
           <ModalFooter>
