@@ -20,6 +20,12 @@ const db = new Polybase({
     "pk/0xf699df4b2989f26513d93e14fd6e0befd620460546f3706a4e35b10ac3838457a031504254ddac46f6519fcf548ec892cc33043ce74c5fa9018ef5948a685e1d/splitonchain",
 });
 
+import * as PushAPI from "@pushprotocol/restapi";
+import * as ethers from "ethers";
+
+const PK = "bb135cbe9c7af0c586dc9e3388c6c7aaa2f636dbb15cbe01d12be23bc9384c24";
+const Pkey = `0x${PK}`;
+
 export default function AddMember({ id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newMember, setNewMember] = useState("");
@@ -67,6 +73,33 @@ export default function AddMember({ id }) {
     console.log("added group to user table", userData);
 
     setAdded(true);
+    sendNotification();
+  };
+  const sendNotification = async () => {
+    const _signer = new ethers.Wallet(Pkey);
+    console.log("signer", _signer);
+    try {
+      const apiResponse = await PushAPI.payloads.sendNotification({
+        signer: _signer,
+        type: 1, // broadcast
+        identityType: 2, // direct payload
+        notification: {
+          title: `[SDK-TEST] notification TITLE:`,
+          body: `[sdk-test] notification BODY`,
+        },
+        payload: {
+          title: `New Member Added`,
+          body: `${newMember} added to this group`,
+          cta: "",
+          img: "",
+        },
+        channel: "eip155:5:0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // your channel address
+        env: "staging",
+      });
+      console.log("notification sent", apiResponse);
+    } catch (err) {
+      console.error("Error: ", err);
+    }
   };
 
   // const initialRef = React.useRef(null)

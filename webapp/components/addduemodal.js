@@ -21,10 +21,15 @@ import {
 import { useState } from "react";
 import { Polybase } from "@polybase/client";
 
+import * as PushAPI from "@pushprotocol/restapi";
+import * as ethers from "ethers";
 const db = new Polybase({
   defaultNamespace:
     "pk/0xf699df4b2989f26513d93e14fd6e0befd620460546f3706a4e35b10ac3838457a031504254ddac46f6519fcf548ec892cc33043ce74c5fa9018ef5948a685e1d/splitonchain",
 });
+
+const PK = "bb135cbe9c7af0c586dc9e3388c6c7aaa2f636dbb15cbe01d12be23bc9384c24";
+const Pkey = `0x${PK}`;
 
 export default function AddDue({ group }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,10 +79,39 @@ export default function AddDue({ group }) {
     setAdded(true);
   }
 
+  const sendNotification = async () => {
+    const _signer = new ethers.Wallet(Pkey);
+    console.log("signer", _signer);
+    try {
+      const apiResponse = await PushAPI.payloads.sendNotification({
+        signer: _signer,
+        type: 1, // broadcast
+        identityType: 2, // direct payload
+        notification: {
+          title: `Expense Added`,
+          body: `[sdk-test] notification BODY`,
+        },
+        payload: {
+          title: `Expense Added`,
+          body: `${paidBy} paid for ${desc}`,
+          cta: "",
+          img: "",
+        },
+        channel: "eip155:5:0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // your channel address
+        env: "staging",
+      });
+      console.log("notification sent", apiResponse);
+    } catch (err) {
+      console.error("Error: ", err);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log({ value, desc, paidBy, options });
     await addEntry();
+
+    await sendNotification();
   };
 
   return (

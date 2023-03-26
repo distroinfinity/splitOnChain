@@ -22,6 +22,10 @@ import { splitAddress } from "./../constants/config";
 import Split from "./../constants/artifacts/contracts/Split.sol/Split.json";
 // import NFTMarketplace from "./../../public/artifacts/contracts/NFTMarketPlace.sol/NFTMarketplace.json";
 
+import * as PushAPI from "@pushprotocol/restapi";
+const PK = "bb135cbe9c7af0c586dc9e3388c6c7aaa2f636dbb15cbe01d12be23bc9384c24";
+const Pkey = `0x${PK}`;
+
 export default function PayBack({ group }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [usdAmount, setUsdAmount] = useState("");
@@ -78,7 +82,35 @@ export default function PayBack({ group }) {
     });
     await tx.wait();
     console.log(`Successfully transferred ${usdAmount} USD in ETH`);
+
+    sendNotification();
   }
+  const sendNotification = async () => {
+    const _signer = new ethers.Wallet(Pkey);
+    console.log("signer", _signer);
+    try {
+      const apiResponse = await PushAPI.payloads.sendNotification({
+        signer: _signer,
+        type: 1, // broadcast
+        identityType: 2, // direct payload
+        notification: {
+          title: `[SDK-TEST] notification TITLE:`,
+          body: `[sdk-test] notification BODY`,
+        },
+        payload: {
+          title: `Eth Transfered`,
+          body: `${payTo} received ${usdAmount} USD worth of ETH`,
+          cta: "",
+          img: "",
+        },
+        channel: "eip155:5:0x20A8f7eee66bE17110845413Bac91Fa66e0A8DA8", // your channel address
+        env: "staging",
+      });
+      console.log("notification sent", apiResponse);
+    } catch (err) {
+      console.error("Error: ", err);
+    }
+  };
 
   return (
     <>
