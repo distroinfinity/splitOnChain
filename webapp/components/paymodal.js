@@ -17,6 +17,7 @@ import {
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
+import { getSupportedIdentifierTypes, getPrice } from "@umaprotocol/uma";
 
 import { splitAddress } from "./../constants/config";
 import Split from "./../constants/artifacts/contracts/Split.sol/Split.json";
@@ -32,6 +33,21 @@ export default function PayBack({ group }) {
 
   const [ethUsdRate, setEthUsdRate] = useState(null);
   const [ethAmountInWei, setEthAmountInWei] = useState(null);
+
+  const [ethPrice, setEthPrice] = useState(null);
+  useEffect(() => {
+    const getEthPrice = async () => {
+      const provider = new ethers.providers.JsonRpcProvider();
+      const identifierTypes = await getSupportedIdentifierTypes(provider);
+      console.log("Supported identifier types:", identifierTypes);
+
+      const identifier = "ETH/USD";
+      const price = await getPrice(provider, identifier);
+      setEthPrice(price.toString());
+    };
+
+    getEthPrice();
+  }, []);
 
   const [payTo, setPayTo] = useState("");
 

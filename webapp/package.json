@@ -20,6 +20,7 @@
     "@pushprotocol/restapi": "^0.9.0",
     "@pushprotocol/uiembed": "^0.2.0",
     "@rainbow-me/rainbowkit": "^0.12.3",
+    "@uma/core": "^2.53.0",
     "ethers": "^5",
     "framer": "^2.3.0",
     "framer-motion": "^10.0.0",
