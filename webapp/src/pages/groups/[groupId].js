@@ -100,7 +100,7 @@ export default function problems() {
           <Text fontSize={"20px"}>You're owed: 0 USD</Text>
           <Flex flexDir={"row"}>
             <AddDue group={group} />
-            <PayBack />
+            <PayBack group={group} />
           </Flex>
           <Text fontSize={"25px"}>All Activity</Text>
           {entries.map((entry, index) => {
