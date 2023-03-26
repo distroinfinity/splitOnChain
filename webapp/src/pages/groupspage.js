@@ -42,7 +42,7 @@ export default function problems() {
     >
       <Nav />
       <Flex gap={"20px"}>
-        {user?.groups?.length == 0 && <Text>No groups created yet</Text>}
+        {user?.groups?.length == 0 && <Text fontWeight={"bold"} fontSize={"30px"} margin={"50px"}>No groups created yet</Text>}
         {user?.groups.map((group, index) => {
           // console.log(group);
           return <GroupCard key={index} groupId={group} />;

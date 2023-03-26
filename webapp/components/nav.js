@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Flex, Text, Spacer, Button } from "@chakra-ui/react";
 import { ConnectBtn } from "./custombutton";
 import Link from "next/link";
+import { BellIcon } from '@chakra-ui/icons'
 
 export default function Nav() {
   const router = useRouter();
@@ -74,8 +75,10 @@ export default function Nav() {
             >New Group</Button>
           </Link>
           </Flex>
+          
         </Flex>
         {/* <ConnectBtn /> */}
+        <Flex><BellIcon boxSize={8} borderLeft={"50px"}/></Flex>
       </Flex>
     </Flex>
   );

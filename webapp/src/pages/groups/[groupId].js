@@ -22,10 +22,14 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
+
+
+
 const db = new Polybase({
   defaultNamespace:
     "pk/0xf699df4b2989f26513d93e14fd6e0befd620460546f3706a4e35b10ac3838457a031504254ddac46f6519fcf548ec892cc33043ce74c5fa9018ef5948a685e1d/splitonchain",
 });
+
 
 export default function problems() {
   let router = useRouter();
@@ -114,7 +118,9 @@ export default function problems() {
           {/* <GetCard solved={"true"} /> */}
         </Flex>
         <Divider orientation="vertical" />
-        <Flex w="300px"></Flex>
+        <Flex w="300px">
+          
+        </Flex>
       </HStack>
     </Flex>
   );
