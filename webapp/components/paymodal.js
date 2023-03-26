@@ -15,33 +15,70 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import axios from "axios";
+
+import { splitAddress } from "./../constants/config";
+import Split from "./../constants/artifacts/contracts/Split.sol/Split.json";
+// import NFTMarketplace from "./../../public/artifacts/contracts/NFTMarketPlace.sol/NFTMarketplace.json";
 
 export default function PayBack({ group }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [usdValue, setUsdValue] = useState(0);
-  const [ethValue, setEthValue] = useState(0);
-  const [ethPrice, setEthPrice] = useState(null);
+  const [usdAmount, setUsdAmount] = useState("");
+
+  const [ethUsdRate, setEthUsdRate] = useState(null);
+  const [ethAmountInWei, setEthAmountInWei] = useState(null);
+
   const [payTo, setPayTo] = useState("");
 
   // const initialRef = React.useRef(null)
   // const finalRef = React.useRef(null)
-
   useEffect(() => {
-    fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-    )
-      .then((response) => response.json())
-      .then((data) => setEthPrice(data.ethereum.usd));
+    async function fetchEthPrice() {
+      const response = await axios.get(
+        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+      );
+      setEthUsdRate(response.data.ethereum.usd);
+    }
+
+    fetchEthPrice();
   }, []);
 
-  const handleUsdChange = (event) => {
-    const usd = event.target.value;
-    setUsdValue(usd);
-    if (ethPrice) {
-      const eth = usd / ethPrice;
-      setEthValue(eth);
+  useEffect(() => {
+    console.log(typeof ethUsdRate, typeof usdAmount);
+    if (ethUsdRate && usdAmount) {
+      const ethAmount = usdAmount / ethUsdRate;
+      console.log("eth amount", ethAmount);
+      const ethAmountInWei = ethers.utils.parseEther(ethAmount.toFixed(18));
+      setEthAmountInWei(ethAmountInWei);
     }
-  };
+  }, [ethUsdRate, usdAmount]);
+
+  function handleInputChange(event) {
+    console.log("usd selectyed", event.target.value);
+    setUsdAmount(event.target.value);
+  }
+
+  async function handleTransfer() {
+    console.log(" transfering ...., ", payTo, ethAmountInWei.toString());
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const signer = provider.getSigner();
+    const splitContract = new ethers.Contract(splitAddress, Split.abi, signer);
+
+    const split = splitContract.connect(signer);
+    // const amountInWei = ethers.utils.parseUnits(
+    //   ethAmountInWei.toString() / 1000000000000000000,
+    //   "ether"
+    // );
+
+    const tx = await split.transferEther(payTo, {
+      value: ethAmountInWei,
+    });
+    await tx.wait();
+    console.log(`Successfully transferred ${usdAmount} USD in ETH`);
+  }
 
   return (
     <>
@@ -68,7 +105,7 @@ export default function PayBack({ group }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Paying Hash 0.09ETH Back</ModalHeader>
+          <ModalHeader>Pay Back</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl id="select">
@@ -85,24 +122,37 @@ export default function PayBack({ group }) {
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Amount in USD </FormLabel>
+              <FormLabel>USD Amount: </FormLabel>
               <Input
                 placeholder="Enter USD to transfer"
                 type="number"
-                value={usdValue}
-                onChange={handleUsdChange}
+                value={usdAmount}
+                onChange={handleInputChange}
               />
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Euivalent Eth </FormLabel>
-              <Input value={ethValue} isDisabled={true} />
+              <Input
+                value={
+                  ethAmountInWei
+                    ? ethers.utils.formatEther(ethAmountInWei)
+                    : "Loading..."
+                }
+                isDisabled={true}
+              />
               <br></br>
-              <Text>{ethPrice && <Text>1 ETH = ${ethPrice}</Text>}</Text>
+              <Text>ETH Price: {ethUsdRate ? ethUsdRate : "Loading..."}</Text>
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button mr={3}>Pay</Button>
+            <Button
+              mr={3}
+              onClick={handleTransfer}
+              isDisabled={!(payTo != "" && usdAmount != "")}
+            >
+              Pay
+            </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
