@@ -66,7 +66,10 @@ export default function PayBack({ group }) {
   async function handleTransfer() {
     console.log(" transfering ...., ", payTo, ethAmountInWei.toString());
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Provider(
+      "https://alpha-rpc.scroll.io/l2"
+    );
 
     const signer = provider.getSigner();
     const splitContract = new ethers.Contract(splitAddress, Split.abi, signer);

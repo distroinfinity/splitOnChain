@@ -56,7 +56,7 @@ export default function AddMember({ id }) {
       // populate these dynamically with address and name of user
       user = await db
         .collection("User")
-        .create([publicKey.toLowerCase(), "TestName - Yash"]);
+        .create([newMember.toLowerCase(), "TestName - Yash"]);
       console.log("New User created");
     }
     console.log("user is ", user);
