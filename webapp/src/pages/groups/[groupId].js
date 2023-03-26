@@ -32,6 +32,7 @@ export default function problems() {
 
   const [id, setId] = useState(null);
   const [group, setGroup] = useState(null);
+  const [entries, setEntries] = useState([]);
 
   async function loadGroup() {
     console.log("groupId passed as quer", router.query.groupId);
@@ -40,7 +41,23 @@ export default function problems() {
     setId(id);
     const group = await db.collection("Group").record(id).get();
     console.log("group fetched", group.data);
+    let temp = [];
+    for (let i = 0; i < group.data.entries.length; i++) {
+      const entry = await db
+        .collection("Entry")
+        .record(group.data.entries[i])
+        .get();
+      console.log(i, entry.data);
+      temp.push(entry.data);
+    }
     setGroup(group.data);
+    setEntries(temp);
+  }
+
+  async function getEntry(id) {
+    const entry = await db.collection("Entry").record(id).get();
+    // console.log("group fetched", group.data);
+    return entry;
   }
 
   useEffect(() => {
@@ -80,51 +97,19 @@ export default function problems() {
           <Text fontSize={"20px"}>You owe: 0.09ETH</Text>
           <Text fontSize={"20px"}>You're owed: 0.06ETH</Text>
           <Flex flexDir={"row"}>
-            {/* <Button
-              // onClick={addEntry}
-              type="button"
-              background={"rgba(255, 255, 255, 0.04)"}
-              height={"47px"}
-              margin={"10px"}
-              paddingRight={"20px"}
-              paddingLeft={"20px"}
-              borderRadius={"4px"}
-              border={"1px solid rgba(255, 255, 255, 0.2)"}
-              _hover={{
-                background: "rgba(255, 255, 255, 0.02)",
-                boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
-              }}
-              _active={{}}
-              fontSize={"21px"}
-              fontWeight={"medium"}
-            >
-              Add Expense
-            </Button> */}
             <AddDue group={group} />
-            <Button
-              type="button"
-              background={"rgba(255, 255, 255, 0.04)"}
-              height={"47px"}
-              margin={"10px"}
-              paddingRight={"20px"}
-              paddingLeft={"20px"}
-              borderRadius={"4px"}
-              border={"1px solid rgba(255, 255, 255, 0.2)"}
-              _hover={{
-                background: "rgba(255, 255, 255, 0.02)",
-                boxShadow: "0px 1px 12px rgba(255,255,255,0.05)",
-              }}
-              _active={{}}
-              fontSize={"21px"}
-              fontWeight={"medium"}
-            >
-              Settle up!
-            </Button>
+            <PayBack />
           </Flex>
           <Text fontSize={"25px"}>All Activity</Text>
-          <Card solved={"true"} />
-          <GetCard solved={"true"} />
-          <DoneCard solved={"true"} />
+          {entries.map((entry, index) => {
+            if (entry.type == 0) {
+              return <Card key={index} solved={"true"} entry={entry} />;
+            } else {
+              <DoneCard solved={"true"} />;
+            }
+          })}
+
+          {/* <GetCard solved={"true"} /> */}
         </Flex>
         <Divider orientation="vertical" />
         <Flex w="300px"></Flex>

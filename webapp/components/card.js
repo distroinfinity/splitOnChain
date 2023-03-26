@@ -2,8 +2,9 @@ import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import PayBack from "./paymodal";
 
-export default function Card({ solved, tag, title }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export default function Card({ solved, entry, tag, title }) {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log("entry object ");
   return (
     <motion.div
       initial={{ opacity: "0" }}
@@ -34,11 +35,11 @@ export default function Card({ solved, tag, title }) {
           fontSize={"18px"}
           align={"center"}
         >
-          <Text>Hash lent 0.09ETH to you for FLIGHT TO GOA</Text>
-          <PayBack/>
+          <Text>
+            {entry.paidBy} spent {entry.value} USD for {entry.description}
+          </Text>
         </Flex>
       </Flex>
     </motion.div>
   );
 }
-
