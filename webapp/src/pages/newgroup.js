@@ -27,7 +27,7 @@ const db = new Polybase({
 
 export default function newgroup() {
   const router = useRouter();
-  const { user } = useContext(User_data);
+  const { user, setUser } = useContext(User_data);
 
   const [groupName, setGroupName] = useState("");
 
@@ -62,6 +62,7 @@ export default function newgroup() {
       .call("addGroup", [groupId]); // hardcoded group id
 
     console.log("added group to user table", recordData);
+    setUser(recordData.data);
     // router.push("./problems");
   };
 

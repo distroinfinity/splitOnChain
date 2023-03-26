@@ -25,6 +25,12 @@ export default function problems() {
   const { user } = useContext(User_data);
   console.log("user through context in groups page ", user);
 
+  async function loadGroups() {}
+
+  useEffect(() => {
+    loadGroups();
+  }, []);
+
   return (
     <Flex
       className="font"
@@ -36,6 +42,7 @@ export default function problems() {
     >
       <Nav />
       <Flex gap={"20px"}>
+        {user?.groups?.length == 0 && <Text>No groups created yet</Text>}
         {user?.groups.map((group, index) => {
           // console.log(group);
           return <GroupCard groupId={group} />;

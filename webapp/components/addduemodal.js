@@ -27,11 +27,11 @@ const db = new Polybase({
 
 export default function AddDue({ group }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log("group details in add expensee modal", group);
+  // console.log("group details in add expensee modal", group);
   const [desc, setDesc] = useState("");
   const [value, setValue] = useState(0);
   const [options, setOptions] = useState([]);
-  const [paidBy, setPaidBy] = useState(null);
+  const [paidBy, setPaidBy] = useState("");
 
   // const initialRef = React.useRef(null)
   // const finalRef = React.useRef(null)
